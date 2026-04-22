@@ -13,6 +13,7 @@ body {
     justify-content: center;
     margin: 0;
     padding: 20px;
+    transition: filter 0.2s ease, background-color 0.2s ease;
 }
 
 .timer {
@@ -103,3 +104,40 @@ label {
     text-align: center;
 }
 
+/* --- Chaotic Effects --- */
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.1; background-color: #000; }
+}
+
+.effect-shake {
+    animation: shake 0.3s infinite;
+}
+
+.effect-flicker {
+    animation: flicker 0.15s infinite;
+}
+
+.effect-invert {
+    filter: invert(100%) hue-rotate(180deg);
+    background-color: #ff0077;
+}
+
+.effect-blur {
+    filter: blur(4px);
+}
