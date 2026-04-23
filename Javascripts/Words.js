@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const inputElement = document.getElementById('animatedInput');
     const wordsBox = document.getElementById('description');
+    const wordTracker = document.getElementById('wordTracker'); // Grab the new UI element
     const bodyElement = document.body;
     
     let currentWord = '';
@@ -17,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let gameStarted = false;
     let isBackwards = false;
 
-    // Shake, invert, and blur removed. Added the new ideas!
     const effects = [
         'effect-flicker',
         'effect-mirror',
@@ -34,8 +34,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Remove previous effect
         effects.forEach(effect => bodyElement.classList.remove(effect));
         
-        // Pick and apply a new random effect
-        const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+        // Pick a random effect, making sure it isn't mirror on the very first word
+        let randomEffect;
+        if (wordsCompleted === 0) {
+            const safeEffects = effects.filter(e => e !== 'effect-mirror');
+            randomEffect = safeEffects[Math.floor(Math.random() * safeEffects.length)];
+        } else {
+            randomEffect = effects[Math.floor(Math.random() * effects.length)];
+        }
+
         bodyElement.classList.add(randomEffect);
 
         // Check if the current effect is the backwards typing one
@@ -52,6 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         wordsBox.className = 'description-centered';
         inputElement.value = '';
+        
+        // Update the word tracker text on screen
+        wordTracker.textContent = `Words: ${wordsCompleted}`;
     }
 
     inputElement.addEventListener('focus', () => {
