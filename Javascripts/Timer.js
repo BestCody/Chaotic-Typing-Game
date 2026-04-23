@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let timeLeft = 90;
+    let timeLeft = 90; 
     let timerInterval = null;
     let gameStarted = false;
     let timerPaused = false;
 
     const timerElement = document.getElementById('timer');
     const inputElement = document.getElementById('animatedInput');
+    
+    // CHANGE: Target the container to clean up effects when time ends
+    const effectTarget = document.querySelector('.container');
 
     function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
@@ -24,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(timerInterval);
             timerElement.textContent = "00:00";
             inputElement.disabled = true;
-            // Clean up all effects when the game ends
-            document.body.className = 'smooth-text'; 
+            
+            // Clean up all effects on the container when the game ends
+            effectTarget.className = 'container'; 
         }
         
         timeLeft--;
