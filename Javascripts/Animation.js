@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const Text1 = [
-        "This is a typing game for OTHS Coding Club!"
+        "This is a really cool typing game!"
     ];
     const input = document.getElementById('animatedInput');
     const audio = new Audio('music.mp3');
