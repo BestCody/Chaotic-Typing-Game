@@ -30,6 +30,21 @@ body {
     z-index: 1000;
 }
 
+/* Moved to the top right */
+.word-tracker {
+    position: fixed;
+    top: 20px; 
+    right: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
 .container {
     background: rgba(255, 255, 255, 0.95);
     padding: 40px;
@@ -156,17 +171,4 @@ label {
 }
 .effect-backwards .typewriter-input {
     direction: rtl; /* Forces the typing cursor to move right-to-left */
-}
-.word-tracker {
-    position: fixed;
-    top: 180px; 
-    left: 585px;
-    font-family: 'Courier New', monospace;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 10px 15px;
-    border-radius: 8px;
-    z-index: 1000;
 }
