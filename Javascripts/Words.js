@@ -10,13 +10,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const inputElement = document.getElementById('animatedInput');
     const wordsBox = document.getElementById('description');
+    const bodyElement = document.body;
+    
     let currentWord = '';
     let wordsCompleted = 0;
     let gameStarted = false;
+    let isBackwards = false;
+
+    // Shake, invert, and blur removed. Added the new ideas!
+    const effects = [
+        'effect-flicker',
+        'effect-mirror',
+        'effect-spin',
+        'effect-blind',
+        'effect-earthquake',
+        'effect-shrink',
+        'effect-rainbow',
+        'effect-drift',
+        'effect-backwards'
+    ];
 
     function updateWord(){
+        // Remove previous effect
+        effects.forEach(effect => bodyElement.classList.remove(effect));
+        
+        // Pick and apply a new random effect
+        const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+        bodyElement.classList.add(randomEffect);
+
+        // Check if the current effect is the backwards typing one
+        isBackwards = (randomEffect === 'effect-backwards');
+
         currentWord = words[Math.floor(Math.random() * words.length)];
-        wordsBox.textContent = currentWord;
+        
+        // Update the display to warn them if they need to type backwards
+        if (isBackwards) {
+            wordsBox.innerHTML = `<strong>${currentWord}</strong> <br><span style="color:red;">(TYPE IT BACKWARDS!)</span>`;
+        } else {
+            wordsBox.textContent = currentWord;
+        }
+        
         wordsBox.className = 'description-centered';
         inputElement.value = '';
     }
@@ -33,7 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
             gameStarted = true;
             updateWord();
         }
-        if (inputElement.value === currentWord) {
+        
+        // If the backwards effect is active, check against the reversed word
+        let targetWord = isBackwards ? currentWord.split('').reverse().join('') : currentWord;
+        
+        if (inputElement.value === targetWord) {
             wordsCompleted++;
             updateWord();
         }
