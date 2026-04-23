@@ -13,7 +13,7 @@ body {
     justify-content: center;
     margin: 0;
     padding: 20px;
-    transition: filter 0.2s ease, background-color 0.2s ease;
+    transition: filter 0.2s ease, background-color 0.2s ease, transform 0.5s ease;
 }
 
 .timer {
@@ -106,38 +106,54 @@ label {
 
 /* --- Chaotic Effects --- */
 
-@keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
 @keyframes flicker {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.1; background-color: #000; }
 }
+.effect-flicker { animation: flicker 0.15s infinite; }
 
-.effect-shake {
-    animation: shake 0.3s infinite;
+.effect-mirror { transform: scaleX(-1); }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.effect-spin { animation: spin 1s ease-in-out infinite; }
+
+.effect-blind .typewriter-input {
+    color: transparent;
+    text-shadow: none;
 }
 
-.effect-flicker {
-    animation: flicker 0.15s infinite;
+@keyframes earthquake {
+    0% { transform: translate(15px, 15px) rotate(5deg); }
+    20% { transform: translate(-15px, -20px) rotate(-5deg); }
+    40% { transform: translate(20px, 10px) rotate(3deg); }
+    60% { transform: translate(-20px, 15px) rotate(-3deg); }
+    80% { transform: translate(15px, -15px) rotate(4deg); }
+    100% { transform: translate(-15px, 15px) rotate(-4deg); }
 }
+.effect-earthquake { animation: earthquake 0.1s infinite; }
 
-.effect-invert {
-    filter: invert(100%) hue-rotate(180deg);
-    background-color: #ff0077;
+.effect-shrink { transform: scale(0.2); }
+
+@keyframes rainbow {
+    0% { filter: hue-rotate(0deg) saturate(300%); }
+    100% { filter: hue-rotate(360deg) saturate(300%); }
 }
+.effect-rainbow { animation: rainbow 0.5s linear infinite; }
 
-.effect-blur {
-    filter: blur(4px);
+@keyframes drift {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(50px) translateY(-50px); }
+    100% { transform: translateX(-50px) translateY(50px); }
+}
+.effect-drift { animation: drift 2s ease-in-out infinite; }
+
+/* The Backwards effect visual flair (logical reversal is handled in JS) */
+.effect-backwards {
+    background-color: #8b0000; /* Dark red background to warn them */
+}
+.effect-backwards .typewriter-input {
+    direction: rtl; /* Forces the typing cursor to move right-to-left */
 }
