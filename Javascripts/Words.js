@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const inputElement = document.getElementById('animatedInput');
     const wordsBox = document.getElementById('description');
-    const wordTracker = document.getElementById('wordTracker'); // Grab the new UI element
-    const bodyElement = document.body;
+    const wordTracker = document.getElementById('wordTracker'); 
+    
+    // CHANGE: Target the container instead of the body
+    const effectTarget = document.querySelector('.container'); 
     
     let currentWord = '';
     let wordsCompleted = 0;
@@ -31,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     function updateWord(){
-        // Remove previous effect
-        effects.forEach(effect => bodyElement.classList.remove(effect));
+        // Remove previous effect from the container
+        effects.forEach(effect => effectTarget.classList.remove(effect));
         
         // Pick a random effect, making sure it isn't mirror on the very first word
         let randomEffect;
@@ -43,14 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
             randomEffect = effects[Math.floor(Math.random() * effects.length)];
         }
 
-        bodyElement.classList.add(randomEffect);
+        // Apply effect to the container only
+        effectTarget.classList.add(randomEffect);
 
-        // Check if the current effect is the backwards typing one
         isBackwards = (randomEffect === 'effect-backwards');
 
         currentWord = words[Math.floor(Math.random() * words.length)];
         
-        // Update the display to warn them if they need to type backwards
         if (isBackwards) {
             wordsBox.innerHTML = `<strong>${currentWord}</strong> <br><span style="color:red;">(TYPE IT BACKWARDS!)</span>`;
         } else {
@@ -60,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
         wordsBox.className = 'description-centered';
         inputElement.value = '';
         
-        // Update the word tracker text on screen
         wordTracker.textContent = `Words: ${wordsCompleted}`;
     }
 
@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updateWord();
         }
         
-        // If the backwards effect is active, check against the reversed word
         let targetWord = isBackwards ? currentWord.split('').reverse().join('') : currentWord;
         
         if (inputElement.value === targetWord) {
